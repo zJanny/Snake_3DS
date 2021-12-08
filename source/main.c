@@ -243,8 +243,8 @@ void spawnFood()
 	int y = 0;
 	do
 	{
- 		x = (rand() % ((SCREEN_WIDTH - 20) - 20 + 1)) + 20;
-		y = (rand() % ((SCREEN_HEIGHT - 20) - 20 + 1)) + 20;;
+ 		x = (rand() % ((SCREEN_WIDTH - 40) - 40 + 1)) + 40;
+		y = (rand() % ((SCREEN_HEIGHT - 40) - 40 + 1)) + 40;;
 
 		food.position.x = x;
 		food.position.y = y;

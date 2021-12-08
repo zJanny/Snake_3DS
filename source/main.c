@@ -32,6 +32,7 @@ struct Snake
 	struct Vector2 headPositon;
 	int dx;
 	int dy;
+	int speed;
 };
 
 struct Game
@@ -98,7 +99,7 @@ int main(int argc, char* argv[]) {
 		input();
 		drawTopScreen();
 		drawBottomScreen();
-		int wait = 2;
+		int wait = snake.speed;
 		while(wait--)
 		{
 			gspWaitForVBlank();
@@ -116,8 +117,8 @@ void drawTopScreen()
 	C3D_FrameBegin(C3D_FRAME_SYNCDRAW);
 	C2D_TargetClear(game.top, game.clrClear);
 	C2D_SceneBegin(game.top);
-	checkCollision();
 	moveSnake();
+	checkCollision();
 	drawWalls();
 	drawSnake();
 	drawFood();
@@ -222,11 +223,11 @@ int isFoodSpawnValid(int x, int y)
 
 	for(int i = 0; i < snake.lenght; i++)
 	{
-		l2.x = snake.positions[i].x - 5;
-		l2.y = snake.positions[i].y + 5;
+		l2.x = snake.positions[i].x - 20;
+		l2.y = snake.positions[i].y + 20;
 		struct Vector2 r2;
-		r2.x = snake.positions[i].x + 5;
-		r2.y = snake.positions[i].y - 5;
+		r2.x = snake.positions[i].x + 20;
+		r2.y = snake.positions[i].y - 20;
 		if(isOverlapping(l1, r1, l2, r2))
 		{
 			return 0;
@@ -265,6 +266,7 @@ void initSnake()
 	snake.color = C2D_Color32(0, 255, 0, 255);
 	snake.dx = 10;
 	snake.dy = 0;
+	snake.speed = 6;
 
 	for(int i = 0; i < snake.lenght; i++)
 	{
@@ -341,8 +343,18 @@ void input()
 
 void addScore()
 {
+	snake.positions[snake.lenght].x = snake.positions[snake.lenght - 1].x;
+	snake.positions[snake.lenght].y = snake.positions[snake.lenght - 1].y;
+
 	snake.lenght += 1;
 	game.score += 1;
+	for(int i = 0; i < 4; i++)
+	{
+		if(game.score == 3 * (i + 1))
+		{
+			snake.speed -= 1;
+		}
+	}
 }
 
 void drawWalls()

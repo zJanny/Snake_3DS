@@ -1,6 +1,6 @@
-/snake.elf
-/snake.3dsx
-/snake.smdh
+/*.elf
+/*.3dsx
+/*.smdh
 /romfs/
 /build/
-/.vscode
+/.vscode/*

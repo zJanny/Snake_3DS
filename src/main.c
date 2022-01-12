@@ -1,57 +1,14 @@
-#include <citro2d.h>
-#include <3ds.h>
-
+// system includes
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 
+// 3rdparty lib includes
+#include <citro2d.h>
+#include <3ds.h>
 
-#define SCREEN_WIDTH  400
-#define SCREEN_HEIGHT 240
-
-#define GAME_OVER 0
-#define RUNNING 1
-#define EXIT 2
-
-struct Vector2
-{
-	float x, y;
-};
-
-struct Food
-{
-	u32 color;
-	struct Vector2 position;
-};
-
-struct Snake
-{
-	int lenght;
-	u32 color;
-	struct Vector2 positions[1000];
-	struct Vector2 headPositon;
-	int dx;
-	int dy;
-	int speed;
-};
-
-struct Game
-{
-	u32 clrClear;
-	u32 wallColor;
-	int score;
-	int highscore;
-	int status;
-	double drawTime;
-	C3D_RenderTarget* top;
-	C3D_RenderTarget* bottom;
-	C2D_TextBuf dynamicBuf;
-	C2D_Text scoreText[4];
-};
-
-struct Game game;
-struct Snake snake;
-struct Food food;
+// local includes
+#include "helpers.h"
 
 void drawWalls();
 void initGame();
@@ -302,7 +259,7 @@ void moveSnake()
 void input()
 {
 	hidScanInput();
-	u32 kDown = hidKeysDown();
+	uint32_t kDown = hidKeysDown();
 	if(kDown & KEY_START)
 	{
 		game.status = EXIT;
